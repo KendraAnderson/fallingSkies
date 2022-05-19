@@ -1,0 +1,33 @@
+/*----------------Mobile View Initial CSS----*/
+html {
+    background-image: url("/images/backsplash.png");
+    color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 80px;
+}
+
+div {
+    border: 2px solid rgb(43, 54, 100);
+    padding: 1rem;
+}
+
+.highlight {
+    color: #005aee;
+}
+
+.footer {
+    display: flex;
+
+}
+
+.logoMin {
+    height: 200px;
+    width: auto;
+}
