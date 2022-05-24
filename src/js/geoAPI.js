@@ -1,25 +1,43 @@
-//Global variables
- //Positionstack.com
+
+ //Positionstack.com//Global variables
  const forwardGeo = 'http://api.positionstack.com/v1/forward?access_key=';
  const reverseGeo = 'http://api.positionstack.com/v1/reverse?access_key='; 
  const positionstackKey = '0f450b6879124d364586219d30b6bb14';
  const query = '&query=';
+ 
 
 
 function forwardPGet() {
     //For address input use forwardPGet
     const link = forwardGeo + positionstackKey + query + '7509 S 2840 W, West Jordan, UT';
-    console.log(link);
+    //console.log(link);
     fetch(forwardGeo + positionstackKey + query + '7509 S 2840 W, West Jordan, UT')
     .then(response => response.json())
     .then(forwardResponse => console.table(forwardResponse));
 }
 
-//const stacked = new pStackGeo;
+//index.html button trigger
 document.getElementById('consoleButton').addEventListener("click", () => { forwardPGet()});
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+function reversePGet(lat, long) {
+    lat = 40.614469
+    long = -111.961312
+    const link = reverseGeo + positionstackKey + query + `${lat},${long}`;
+    //console.log(link);.
+    fetch(link)
+    .then(response => response.json())
+    .then(reverseResponse => console.table(reverseResponse));
+
+}
+
+document.getElementById('consoleButton2').addEventListener("click", () => { reversePGet()});
 
 
 
