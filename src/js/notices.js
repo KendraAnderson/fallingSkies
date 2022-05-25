@@ -9,6 +9,7 @@ export default class Notices {
     
     async init() {
         this.notice = await this.getNotices();
+        this.displayNotice();
       }
     
     async getNotices() {
@@ -22,12 +23,13 @@ export default class Notices {
     }
 
     displayNotice() {
+        console.log(this.notice);
         let noticeTitle = document.getElementById("noticeTitle");
         noticeTitle.innerHTML = this.notice.title;
 
         let noticeDate = document.getElementById("noticeDate");
 
-        let jsonDate = this.notice.geometries[notice.geometries.length - 1].date;
+        let jsonDate = this.notice.geometries[this.notice.geometries.length-1].date;
         const longDate = new Date(jsonDate);
         let date = longDate.toDateString();
         noticeDate.innerHTML = date;

@@ -11,8 +11,7 @@ loadHeaderFooter("header", "footer")
 
 //Create an instance of notices
 const notices = new Notices();
-//Call displayNotice to insert the notice into notices section of HTML
-notices.displayNotice();
+notices.init();
 
 //Call other functions to run program...
 
