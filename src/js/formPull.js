@@ -37,11 +37,11 @@ async function placeMap() {
 
 
     let map = `
-    <div>
+    
         <iframe width="800" height="500" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=${addressArray},${cityArray}+${countryArray}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
         </iframe>
         <br></br>
-    </div>
+    
               `;
     
     document.getElementById('mapouter').innerHTML = map;
