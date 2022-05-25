@@ -30,7 +30,7 @@ export async function convertToJson(res) {
 
   export async function loadHeaderFooter(header, footer) {
     let headerTemplate = await loadTemplate("./partials/header.html");
-    let footerTemplate = await loadTemplate("./partials/header.html");
+    let footerTemplate = await loadTemplate("./partials/footer.html");
     let headerElement = document.querySelector(header);
     let footerElement = document.querySelector(footer);
     renderWithTemplate(headerTemplate, headerElement);
