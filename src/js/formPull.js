@@ -1,4 +1,10 @@
-function getFormValues() {
+import ConnectToNasa from "./connectToNasa.js";
+let connect = new ConnectToNasa
+//let fireball = await connect.getData();
+//console.table(fireball);
+
+
+export function getFormValues() {
     
     // array
     let formData = [];
@@ -16,7 +22,9 @@ function getFormValues() {
     // };
 };
 
-async function placeMap() {
+
+
+export async function placeMap() {
     const form = getFormValues();
 
     let addressArray = form[0].split(" ");
@@ -38,7 +46,7 @@ async function placeMap() {
 
     let map = `
     
-        <iframe width="800" height="500" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=${addressArray},${cityArray}+${countryArray}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+        <iframe width="800" height="500" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=${addressArray},${cityArray}+${state}+${countryArray}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
         </iframe>
         <br></br>
     
@@ -47,7 +55,7 @@ async function placeMap() {
     document.getElementById('mapouter').innerHTML = map;
 }
 
-function placeDOM() {
+export function placeDOM() {
     // paths
     const userHead = document.getElementById('userHead');
     const userAddPath = document.getElementById('userAddress');
@@ -68,16 +76,19 @@ function placeDOM() {
 
 
 
-document.getElementById('submitLocation').addEventListener('click', (e) => {
-    e.preventDefault();
-    let myForm = document.forms[0];
-    let chk_status = myForm.checkValidity();
-    myForm.reportValidity();
-    if (chk_status) {
-        placeDOM();
-        placeMap();
-    }
-  });
+// document.getElementById('submitLocation').addEventListener('click', (e) => {
+//     e.preventDefault();
+//     let myForm = document.forms[0];
+//     let chk_status = myForm.checkValidity();
+//     myForm.reportValidity();
+//     if (chk_status) {
+
+//         placeDOM();
+//         placeMap();
+//         connect.getData();
+
+// //     }
+//   });
 
 
 
