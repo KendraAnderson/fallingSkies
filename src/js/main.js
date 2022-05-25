@@ -3,10 +3,17 @@ import { convertToJson } from "./utils.js";
 import GeoApi from "./geoAPI.js";
 import {placeDOM} from './formPull';
 import {placeMap} from './formPull';
+import Notices from './notices.js';
 
 
 //Call displayHeaderFooter
 loadHeaderFooter("header", "footer")
+
+//Create an instance of notices
+const notices = new Notices();
+//Call displayNotice to insert the notice into notices section of HTML
+notices.displayNotice();
+
 //Call other functions to run program...
 
 // initialize GeoApi
