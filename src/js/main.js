@@ -3,6 +3,7 @@ import { convertToJson } from "./utils.js";
 import GeoApi from "./geoAPI.js";
 import {placeDOM} from './formPull';
 import {placeMap} from './formPull';
+import { distance } from "./utils.js"
 
 
 //Call displayHeaderFooter
@@ -39,4 +40,6 @@ document.getElementById('consoleButton2').addEventListener("click", () => {
         (document.getElementById('fireballDistance').innerHTML = `Distance: ${convertedLat}`)});;
 
 document.getElementById('consoleButton3').addEventListener("click", () => { g.distanceGet()});
+
+console.log(distance(42, 25, 34, 56))
 
