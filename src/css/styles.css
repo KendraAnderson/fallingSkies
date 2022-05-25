@@ -32,3 +32,29 @@ div {
     height: 200px;
     width: auto;
 }
+
+.map {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+    
+    padding: 0;
+    margin: 0;
+}
+.dataCard {
+    grid-column: 1;
+}
+
+.userLocaleCont {
+    grid-column: 1;
+}
+
+
+.mapouter {
+    padding: 0;
+    margin: 0;
+    text-align:center;
+    align-items:center;
+    height:500px;
+    width: 100%;
+}
