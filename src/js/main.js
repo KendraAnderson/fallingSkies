@@ -4,10 +4,16 @@ import GeoApi from "./geoAPI.js";
 import {placeDOM} from './formPull';
 import {placeMap} from './formPull';
 import { distance } from "./utils.js"
+import Notices from './notices.js';
 
 
 //Call displayHeaderFooter
 loadHeaderFooter("header", "footer")
+
+//Create an instance of notices
+const notices = new Notices();
+notices.init();
+
 //Call other functions to run program...
 
 // initialize GeoApi
