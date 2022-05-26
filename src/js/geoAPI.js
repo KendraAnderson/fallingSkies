@@ -70,16 +70,17 @@ export default class GeoApi {
 
     //////////////////////////////////////////////////////////////////////////////
     async getTheDistance() {
-        closestLat = 0;
-        iValue = '';
-        closestLon = 0;
-        
+        // closestLat = 0;
+        // iValue = '';
+        // closestLon = 0;
 
         let origin = getFormValues()
-        let destination = this.fireballs[0]; //"40.609469,-111.951818"; //
+        let destination = this.fireballs; //"40.609469,-111.951818"; //
         destination = this.reversePGet(destination); 
         console.table(`Origin: ${destination}`);
-
+        let tenClosestFireballs = this.getTenClosest('-33.876304, -60.573260');
+        console.log(tenClosestFireballs)
+        console.log(this.fireballs)
 
         
         this.distanceGet(origin, destination);
@@ -87,14 +88,45 @@ export default class GeoApi {
         let distance = await this.distanceGet(origin, destination);
         console.table(distance);
 
-
-
     }
+    getTenClosest(origin){ 
+        let closestDistance = 99999999999999;
+        let tenClosestElements = [];
+        console.log(origin)
+        let originSplit = origin.split(',');
+        console.log(this.fireballs)
+        let closestElement = ''
+        for (let i = 0; i < 10; i++){
+        this.fireballs.map((element)=>{
+            if (tenClosestElements.includes(element)){
+                return false;
+            }
+            else{
+            let fireballSplit = element.split(',');
+            let lattitudeAdded = parseFloat(fireballSplit[0])-parseFloat(originSplit[0]);//let lonAndLatAdded = parseFloat(lonAndLat[0])+parseFloat(lonAndLat[1]);
+            let longitudeAdded = parseFloat(fireballSplit[1])-parseFloat(originSplit[1]);
+            
+            if (lattitudeAdded<0){
+                lattitudeAdded = lattitudeAdded*-1
+            }
+            if (longitudeAdded<0){
+                longitudeAdded = longitudeAdded*-1
+            }
+            let distance = lattitudeAdded + longitudeAdded;
 
-
-
+            if (distance<closestDistance){
+                closestDistance = distance;
+                closestElement = element;
+                console.log(`${element}  :  ${lattitudeAdded}`)
+            }
+        }
+        });
+        closestDistance = 99999999999999;   
+        tenClosestElements.push(closestElement);
+    }
+    return tenClosestElements;
+    }
 };
-
 
 
 
