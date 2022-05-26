@@ -4,6 +4,10 @@ html {
     color: white;
 }
 
+.title {
+    text-align: center;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -25,7 +29,7 @@ div {
 
 .footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .logoMin {
@@ -34,27 +38,56 @@ div {
 }
 
 .map {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr;
-    
-    padding: 0;
-    margin: 0;
+    display: block;
 }
-.dataCard {
-    grid-column: 1;
-}
-
-.userLocaleCont {
-    grid-column: 1;
-}
-
 
 .mapouter {
     padding: 0;
     margin: 0;
-    text-align:center;
-    align-items:center;
-    height:500px;
+    text-align: center;
+    align-items: center;
+    height: 300px;
     width: 100%;
+}
+
+.gmap_canvas {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-logo {
+    text-align: center;
+}
+
+
+
+
+@media only screen and (min-width: 768px) {
+    .map {
+        display: flex;
+    }
+
+    .mapouter {
+        height: 100%;
+    }
+
+    .map {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 1fr;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    .userLocaleCont {
+        grid-column: 1;
+    }
+
+    .dataCard {
+        grid-column: 1;
+    }
+
 }
