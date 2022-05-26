@@ -4,8 +4,30 @@ html {
     color: white;
 }
 
+@keyframes wave {
+    0%,40%,100% {
+      transform: translateY(0)
+    }
+    20% {
+      transform: translateY(-10px)
+    }
+  }
+
 .title {
     text-align: center;
+    margin: auto;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    -webkit-box-reflect: below -35px linear-gradient(transparent, rgba(0,0,0,.2));
+    border: none;
+}
+
+.title span {
+    position: relative;
+    display: inline-block;
+    animation: wave 1s 2;
+    animation-delay: calc(80ms * var(--i));
 }
 
 .header {
@@ -64,7 +86,7 @@ div {
 
 
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 500px) {
     .map {
         display: flex;
     }
@@ -88,6 +110,31 @@ div {
 
     .dataCard {
         grid-column: 1;
+    }
+
+    .title {
+        font-size: 30px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .title {
+        font-size: 40px;
+    }
+
+    .header {
+        height: 150px;
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+
+    .title {
+        font-size: 50px;
+    }
+
+    .header {
+        height: 180px;
     }
 
 }
