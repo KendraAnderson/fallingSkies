@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100&family=Roboto:wght@100&display=swap');
+
 /*----------------Mobile View Initial CSS----*/
 html {
     background-image: url("/images/backsplash.png");
     color: white;
-    font-family: 'Roboto';
+    font-family: 'Helvetica';
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Kanit';
 }
 
 @keyframes wave {
@@ -24,6 +29,7 @@ html {
     position: relative;
     -webkit-box-reflect: below -35px linear-gradient(transparent, rgba(0,0,0,.2));
     border: none;
+    font-family: 'Kanit';
 }
 
 .title span {
@@ -86,7 +92,9 @@ div {
     text-align: center;
 }
 
-
+.warning {
+    color: red;
+}
 
 
 @media only screen and (min-width: 500px) {
