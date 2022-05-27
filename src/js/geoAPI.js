@@ -78,7 +78,7 @@ export default class GeoApi {
         let destination = this.fireballs; //"40.609469,-111.951818"; //
         destination = this.reversePGet(destination); 
         console.table(`Origin: ${destination}`);
-        let tenClosestFireballs = this.getTenClosest('-33.876304, -60.573260');
+        let tenClosestFireballs = this.getClosest('-33.876304, -60.573260');
         console.log(tenClosestFireballs)
         console.log(this.fireballs)
 
@@ -89,14 +89,14 @@ export default class GeoApi {
         console.table(distance);
 
     }
-    getTenClosest(origin){ 
+    getClosest(origin){ 
         let closestDistance = 99999999999999;
         let tenClosestElements = [];
         console.log(origin)
         let originSplit = origin.split(',');
         console.log(this.fireballs)
         let closestElement = ''
-        for (let i = 0; i < 10; i++){
+        for (let i = 0; i < 5; i++){
         this.fireballs.map((element)=>{
             if (tenClosestElements.includes(element)){
                 return false;
