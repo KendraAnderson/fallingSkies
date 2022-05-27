@@ -10,6 +10,18 @@ import Notices from './notices.js';
 //Call displayHeaderFooter
 loadHeaderFooter("header", "footer")
 
+//Display the default map
+let defaultMap = `
+    
+        <iframe width="100%" height="100%" id="gmap_canvas" 
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=50+N+W+Temple+St,Salt+Lake+City%2C+UT+84150" 
+        frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+        </iframe>
+    
+              `;
+    
+    document.getElementById('mapouter').innerHTML = defaultMap;
+
 //Create an instance of notices
 const notices = new Notices();
 notices.init();
