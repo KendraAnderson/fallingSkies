@@ -29,12 +29,15 @@ export async function convertToJson(res) {
   }
 
   export async function loadHeaderFooter(header, footer) {
-    let headerTemplate = await loadTemplate("./partials/header.html");
-    let footerTemplate = await loadTemplate("./partials/footer.html");
+    let headerTemplate = await loadTemplate("/partials/header.html");
+    let footerTemplate = await loadTemplate("/partials/footer.html");
     let headerElement = document.querySelector(header);
     let footerElement = document.querySelector(footer);
-    renderWithTemplate(headerTemplate, headerElement);
+    await renderWithTemplate(headerTemplate, headerElement);
     renderWithTemplate(footerTemplate, footerElement);
+    let nav = document.querySelector('nav');
+    let button = document.querySelector('#navBtn');
+    button.addEventListener('click',()=>{displayNav(nav,button)});
   }
 export async function distance(latOr,
     latDest, lonOr, lonDest)
@@ -63,4 +66,13 @@ let r = 6371;
 
 // calculate the result
 return(c * r);
+}
+function displayNav(nav,btn){
+  if (nav.style.display==="none"){
+  nav.style.display="block";
+  btn.style.boxShadow="1px 1px 5px white";
+  } else{
+    nav.style.display="none";
+    btn.style.boxShadow="none";
+  }
 }
