@@ -25,7 +25,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     margin: auto;
     padding: 0;
-    font-size: 23px;
+    font-size: 5vw;
     font-weight: bold;
     position: relative;
     -webkit-box-reflect: below -10px linear-gradient(transparent, rgba(0,0,0,.2));
@@ -46,6 +46,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: space-between;
     background-color: black;
+    height: 12vh;
 }
 
 .logo {
@@ -161,7 +162,6 @@ form input {
         display: grid;
         grid-template-columns: 1fr 2fr;
         grid-template-rows: 1fr;
-
         padding: 0;
         margin: 0;
     }
@@ -174,18 +174,15 @@ form input {
         grid-column: 1;
     }
 
-    .title {
-        font-size: 30px;
+    .header {
+        height: 20vh;
     }
 }
 
 @media only screen and (min-width: 1000px) {
-    .title {
-        font-size: 40px;
-    }
 
     .header {
-        height: 150px;
+        height: 25vh;
     }
 
     .mapouter {
@@ -195,12 +192,8 @@ form input {
 
 @media only screen and (min-width: 1300px) {
 
-    .title {
-        font-size: 50px;
-    }
-
     .header {
-        height: 180px;
+        height: 30vh;
     }
 
 }
