@@ -59,5 +59,16 @@ document.getElementById('consoleButton2').addEventListener("click", () => {
 
 document.getElementById('consoleButton3').addEventListener("click", () => { g.distanceGet()});
 
-console.log(distance(42, 25, 34, 56))
+const bannerURL = "https://api.nasa.gov/planetary/apod?api_key=";
+const api_key = "K2Jb0JsuuypmVqpf8TxkBxcHhrlkHvCWRuC0z1tc";
+fetch(bannerURL + api_key)
+  .then(response => response.json())
+  .then((jsObject) => {console.table(jsObject)
+    const bannerImg = document.createElement("img")
+    bannerImg.setAttribute("src", jsObject.url);
+    bannerImg.setAttribute("alt", jsObject.title);
+    document.querySelector(".imageBanner").appendChild(bannerImg);
+
+
+})
 
