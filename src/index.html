@@ -22,7 +22,7 @@
           <p>Date: <span id="noticeDate"></span></p>
           <p>Find Out More: <a id="noticeLink" href="#">Click Here</a></p>
         </div>
-        <div class="radioForm">
+        <!-- <div class="radioForm">
           <form action="#">
             <fieldset>
               <legend>Select Type</legend>
@@ -30,7 +30,7 @@
               <input type="radio" name="pickAType"> Fireball
             </fieldset>
           </form>  
-        </div>
+        </div> -->
         <div class="locationForm">
           <form name="userLocation" id="userLocation">
             <fieldset>
@@ -60,32 +60,31 @@
               <p id="userCity"></p>
               <p id="userState"></p>
               <p id="userCountry"></p>
+              <div id="userMap"></div>
             </div>
-            <div class="fireballLocaleCont">
-              <h2>Closest Fireball</h2>
-              <p id="fireballLat">Latitude:</p>
-              <p id="fireballLong">Longitude</p>
-              <p id="fireballDistance">Distance to</p>
-            </div>
-            <div id="map"></div>
+            <div class="fireCard">
+              <div class="fireballLocaleCont" id="fireballCont">
+                <!-- <div class="fireCard">
+                  <h2>Closest Fireball</h2>
+                  <p id="fireballLat">Latitude:</p>
+                  <p id="fireballLong">Longitude:</p>
+                  <p id="fireballDistance">Distance:</p>
+                  <div class="fbMap">
+
+                  </div>
+                </div>   -->
+              </div>
+              <div id="fireMap">
+
+              </div>
+            /div>
           </div>
           
-          <div class="mapouter" id="mapouter">
-            <!-- <div class="gmap_canvas"> -->
-              <!-- <iframe width="800" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=7509%20S%202840%20W%20&t=&z=5&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                
-              </iframe>
-              
-              <br>
-              <style></style> -->
-              <!-- <a href="https://www.embedgooglemap.net">embed maps on website</a> -->
-              <!-- <style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:100%;margin:1rem;}</style> -->
-            <!-- </div> -->
-            </div>
+          
         </div>
-        <button id="consoleButton">Console Log</button>
+        <!-- <button id="consoleButton">Console Log</button>
         <button id="consoleButton2">Console Log 2</button>
-        <button id="consoleButton3">Console Log 3</button>
+        <button id="consoleButton3">Console Log 3</button> -->
       </main>
 
     <footer class="footer">
