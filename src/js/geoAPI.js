@@ -35,7 +35,7 @@ export default class GeoApi {
     }
 
     async reversePGet(lat, long) {
-        let reverseAddress = [];
+        //let reverseAddress = [];
         //lat = 40.614469
         //long = -111.961312
         const link = this.reverseGeo + this.positionstackKey + this.query + `${lat},${long}`;
@@ -46,7 +46,7 @@ export default class GeoApi {
         .then( function (response) {
             let dataParse = response.data[0].label;
             //console.table(`Table Hunter: ${response.data}`);
-            console.table(`Label hunter: ${dataParse}`);
+            //console.table(`Label hunter: ${dataParse}`);
             return dataParse;
         })
         
@@ -74,28 +74,36 @@ export default class GeoApi {
         // iValue = '';
         // closestLon = 0;
 
-        let origin = getFormValues()
+        let origin = await getFormValues();
+        //console.log("Origin Array");
+        //console.table(origin);
         let destination = this.fireballs; //"40.609469,-111.951818"; //
-        destination = this.reversePGet(destination); 
-        console.table(`Origin: ${destination}`);
-        let tenClosestFireballs = this.getClosest('-33.876304, -60.573260');
-        console.log(tenClosestFireballs)
-        console.log(this.fireballs)
-
+        //console.table(`Origin: ${destination}`);
+        destination = await this.reversePGet(destination); 
         
-        this.distanceGet(origin, destination);
+        let tenClosestFireballs = this.getClosest('-33.876304, -60.573260');
+        
+        console.log("tenClosestFireballs");
+        console.log(tenClosestFireballs);
+        console.log("Fireballs");
+        console.log(this.fireballs);
+
+        //await this.distanceGet(origin, destination);
         
         let distance = await this.distanceGet(origin, destination);
+        
+        console.log("GetTheDistance:");
         console.table(distance);
 
     }
     getClosest(origin){ 
         let closestDistance = 99999999999999;
         let tenClosestElements = [];
-        console.log(origin)
+        console.log("Get Closest ORIGIN");
+        console.log(origin);
         let originSplit = origin.split(',');
-        console.log(this.fireballs)
-        let closestElement = ''
+        console.log(this.fireballs);
+        let closestElement = '';
         for (let i = 0; i < 5; i++){
         this.fireballs.map((element)=>{
             if (tenClosestElements.includes(element)){
@@ -117,7 +125,7 @@ export default class GeoApi {
             if (distance<closestDistance){
                 closestDistance = distance;
                 closestElement = element;
-                console.log(`${element}  :  ${lattitudeAdded}`)
+                //console.log(`${element}  :  ${lattitudeAdded}`)
             }
         }
         });

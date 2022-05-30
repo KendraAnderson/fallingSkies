@@ -1,10 +1,13 @@
 import ConnectToNasa from "./connectToNasa.js";
+import { localStore } from "./localStore.js";
+
+
 let connect = new ConnectToNasa
 //let fireball = await connect.getData();
 //console.table(fireball);
 
 
-export function getFormValues() {
+export async function getFormValues() {
     
     // array
     let formData = [];
@@ -15,8 +18,8 @@ export function getFormValues() {
     const country = document.forms["userLocation"]["country"].value;
     // array push
     formData.push(address, city, state, country);
-    //console.table(formData); //testing
-
+    console.table(formData); //testing
+    localStore("userLocationArray", "userLocation", JSON.stringify(formData));
     return formData;
 
     // };
@@ -24,9 +27,10 @@ export function getFormValues() {
 
 
 
+
 export async function placeMap() {
     const form = getFormValues();
-
+    console.table(form);
     let addressArray = form[0].split(" ");
     addressArray = addressArray.join('+');
     
@@ -39,7 +43,7 @@ export async function placeMap() {
     countryArray = countryArray.join('+');
 
 
-    console.log(addressArray, cityArray, state, countryArray);
+    //console.log(addressArray, cityArray, state, countryArray);
     
     
 
@@ -50,19 +54,25 @@ export async function placeMap() {
         </iframe>
     
               `;
-    
-    document.getElementById('mapouter').innerHTML = map;
+// Old placement code
+    //document.getElementById('mapouter').innerHTML = map;
+// Replaced with Return map variable for placing in DOM
+    return map;
 }
 
-export function placeDOM() {
+export async function placeDOM() {
     // paths
     const userHead = document.getElementById('userHead');
     const userAddPath = document.getElementById('userAddress');
     const userCityPath = document.getElementById('userCity');
     const userStatePath = document.getElementById('userState');
     const userCountryPath = document.getElementById('userCountry');
-    // get form values
-    const formData = getFormValues();
+    const userMap = document.getElementById('userMap');
+
+    // get values
+    const formData = await getFormValues();
+    console.log(` FORM DATA LINE 70 FORMPULL${formData}`);
+    const mapData = await placeMap();
 
     // form DOM placement
     userHead.textContent = "Your Location"; 
@@ -70,6 +80,7 @@ export function placeDOM() {
     userCityPath.innerHTML = "City: " + formData[1];
     userStatePath.innerHTML = "State: " + formData[2];
     userCountryPath.innerHTML = "Country: " + formData[3];
+    userMap.innerHTML = mapData;
 }
 
 
