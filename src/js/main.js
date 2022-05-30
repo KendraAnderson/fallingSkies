@@ -67,6 +67,7 @@ fetch(bannerURL + api_key)
     const bannerImg = document.createElement("img")
     bannerImg.setAttribute("src", jsObject.url);
     bannerImg.setAttribute("alt", jsObject.title);
+    bannerImg.setAttribute("id", "bannerImage")
     document.querySelector(".imageBanner").appendChild(bannerImg);
 
 

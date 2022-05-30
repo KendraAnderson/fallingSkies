@@ -170,7 +170,12 @@ nav ul li a:hover{
     border: 1px solid black;
     border-radius: 180px;
 }
-
+#bannerImage {
+    width: 96%;
+    height: 50em;
+    margin: auto;
+    object-fit: cover;
+}
 
 @media only screen and (min-width: 500px) {
     .map {
