@@ -171,10 +171,10 @@ nav ul li a:hover{
     border-radius: 180px;
 }
 #bannerImage {
-    width: 96%;
-    height: 50em;
-    margin: auto;
-    object-fit: cover;
+    width: 100%;
+    max-height: 40em;
+    align-items: center;
+    
 }
 
 @media only screen and (min-width: 500px) {
