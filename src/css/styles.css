@@ -3,6 +3,7 @@
 
 /*----------------Mobile View Initial CSS----*/
 html {
+    
     background-image: url("/images/backsplash.png");
     background-repeat: no-repeat;
     background-size: auto 100%;
@@ -282,18 +283,24 @@ nav ul li a:hover{
 
 
 
-@media only screen and (min-width: 500px) {
-    .map {
-        display: flex;
-    } 
-
-    .map {
+@media only screen and (min-width: 37.5rem) {
+    .imageWarn {
         display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr;
-        padding: 0;
-        margin: 0;
+
     }
+
+    .notices {
+        margin: 4rem;
+        
+    }
+    
+    /* .map {
+        display: flex;
+    }  */
+
+    
 
     .userLocaleCont {
         grid-column: 1;
@@ -332,6 +339,44 @@ nav ul li a:hover{
     .about div{
         grid-row: 2;
     }
+
+    /*-------------------- Location cards ----- */
+
+    .map {
+        
+        padding: 0;
+        margin: 0;
+    }
+
+    .datacard {
+
+    }
+
+    .fireCard {
+        
+        background-color: rgba(0, 90, 238,.2);
+        border-radius: 1rem;
+        overflow: hidden;
+        margin: 0.5rem;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 1fr;
+    }
+
+    .userLocaleCont h2, .userLocaleCont p,
+    .fireCard h2, .fireCard p {
+        padding: 0 0 0 .5rem;
+    }
+
+    .firecard {
+        width: 100%
+    }
+
+
+
+
+
+
 }
 
 @media only screen and (min-width: 1000px) {

@@ -15,15 +15,17 @@
   <header class="header">
   </header>
   <main>
-    <div class="imageBanner">
-      <h2>Image of the Day</h2>
+    <div class="imageWarn">
+      <div class="imageBanner">
+        <h2>Image of the Day</h2>
+      </div>
+      <div class="notices">
+        <p><span class="warning">Warning: </span><span id="noticeTitle"></span></p>
+        <p>Date: <span id="noticeDate"></span></p>
+        <p>Find Out More: <a id="noticeLink" href="#">Click Here</a></p>
+      </div>
     </div>
-    <div class="notices">
-      <p><span class="warning">Warning: </span><span id="noticeTitle"></span></p>
-      <p>Date: <span id="noticeDate"></span></p>
-      <p>Find Out More: <a id="noticeLink" href="#">Click Here</a></p>
-    </div>
-    <!--<div class="radioForm">
+      <!--<div class="radioForm">
           <form action="#">
             <fieldset>
               <legend>Select Type</legend>
@@ -63,7 +65,7 @@
               <p id="userCountry"></p>
               <div id="userMap"></div>
             </div>
-            <div class="fireCard">
+            <div class="fireCards">
               <div class="fireballLocaleCont" id="fireballCont">
                 <!-- <div class="fireCard">
                   <h2>Closest Fireball</h2>
@@ -75,9 +77,9 @@
                   </div>
                 </div>   -->
               </div>
-              <div id="fireMap">
+              <!-- <div id="fireMap">
 
-              </div>
+              </div> -->
             </div>
           </div>
           

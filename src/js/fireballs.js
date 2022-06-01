@@ -41,11 +41,13 @@ export default class Fireballs {
                 let card = `
                 <div class="fireballLocaleCont">
                     <div class="fireCard">
-                        <h2>Fireball ${i+1}</h2>
-                        <p id="fireballLat[${i}]">Latitude: ${fbs[i]}</p>
-                        <p id="fireballLong[${i}]">Longitude: ${fbs[i+1]}</p>
-                        <p id="fireballDistance[${i}]">Distance: ${distance} km</p>
-                        <div class="fbMap[${i}]">
+                        <div class="fbText" id="fbText${i}">
+                            <h2>Fireball ${i+1}</h2>
+                            <p id="fireballLat[${i}]">Latitude: ${fbs[i]}</p>
+                            <p id="fireballLong[${i}]">Longitude: ${fbs[i+1]}</p>
+                            <p id="fireballDistance[${i}]">Distance: ${distance} km</p>
+                        </div>
+                        <div class="fbMap" id="fbMap${i}">
                             ${map}
                         </div>
                     </div>  
