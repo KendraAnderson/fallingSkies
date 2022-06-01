@@ -1,5 +1,8 @@
 import ConnectToNasa from './connectToNasa.js';
 import { getFormValues } from './formPull.js';
+import { localStore } from './localStorage.js';
+import { getStore } from './localStorage.js';
+
 
 let cToN = new ConnectToNasa;
 
@@ -14,6 +17,7 @@ export default class GeoApi {
     this.positionstackKey = '0f450b6879124d364586219d30b6bb14';
     this.query = '&query=';
     this.dmtoken = "QBxCMLC6DVxM9Lkc0uYokC8ZbxU9P";
+    this.gToken = "AIzaSyCmaff4C42bJbYWUp74S_yc4oWWwOkwZog";
     this.origin = "7509 S 2840 W, West Jordan, UT 84084, USA";
     this.destination = '1904 152 ave, Edmonton T5Y 2R7, AB, Canada'
     //Distance Matrix AI (distancematrix.ai)
@@ -22,17 +26,34 @@ export default class GeoApi {
     this.origin = "7509 S 2840 W, West Jordan, UT 84084, USA";
     this.destination = '1904 152 ave, Edmonton T5Y 2R7, AB, Canada';
     this.fireballs = await cToN.getData();
+    this.tenClosestFireballs = [];
+    //this.fireballs = JSON.stringify(this.fireballs);
+    //LOCAL STORAGE KEYS
+    this.fbLatLongStore = "FBallStore"; 
+    this.userAddressStore = "userLocation";
+    this.userLatLonStore = "userLatLon";
+    this.closestFBStore = "closestFBs";
     }
 
-    async forwardPGet() {
+    async forwardPGet(keyName, address, city, state, country) {
         //For address input use forwardPGet
-        const link = this.forwardGeo + this.positionstackKey + this.query + '7509 S 2840 W, West Jordan, UT';
-        //console.log(link);
+        const link = this.forwardGeo + this.positionstackKey + this.query + `${address},${city} ${state},${country}`;
+        //console.log(`LINK fpg: ${link}`);
+        //let latLon =
+        
         await fetch(link)
-        .then(response => response.json())
-        .then(forwardResponse => console.table(forwardResponse));
+            .then(function (response){
+                return response.json();
+            })
+            .then(function (jsonObject) {
+                //console.table(jsonObject);
+                const userInfo = jsonObject['data'];
+                //console. table(userInfo);
+                localStorage.setItem(keyName, (`${userInfo[0].latitude}, ${userInfo[0].longitude}`));
+            });
+        //.then(forwardResponse => console.table(forwardResponse));
 
-    }
+    };
 
     async reversePGet(lat, long) {
         let reverseAddress = [];
@@ -46,7 +67,7 @@ export default class GeoApi {
         .then( function (response) {
             let dataParse = response.data[0].label;
             //console.table(`Table Hunter: ${response.data}`);
-            console.table(`Label hunter: ${dataParse}`);
+            //console.table(`Label hunter: ${dataParse}`);
             return dataParse;
         })
         
@@ -57,12 +78,32 @@ export default class GeoApi {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     async distanceGet(origin, destination) {
-        //origin = "7509 S 2840 W, West Jordan, UT 84084, USA";
-        //destination = '40.614469,-111.961312';
-        const link = `https://api.distancematrix.ai/maps/api/distancematrix/json?origins=<${origin}>&destinations=<${destination}>&key=${this.dmtoken}`
-        //console.log(link);
-        return await fetch(link)
-        .then(response => response.json())
+        origin = origin.split(",");
+        
+        destination = destination.split(",");
+        
+        //console.table(origin, destination);
+
+        function roundUp(num, precision) {
+            precision = Math.pow(10, precision)
+            return Math.ceil(num * precision) / precision
+          };
+        let lat1 = origin[0]; //latitude value of point A>;
+        let lon1 = origin[1]; //<longitude value of point A>;
+        let lat2 = destination[0]; //<latitude value of point B>;
+        let lon2 = destination[1]; //<longitude value of point B>;
+        let cos = Math.cos;
+        let asin = Math.asin;
+        let sqrt = Math.sqrt;
+
+        let r = 6371 //#radius of Earth (KM)
+        let p = 0.017453292519943295  //#Pi/180
+        let a = 0.5 - cos((lat2-lat1)*p)/2 + cos(lat1*p)*cos(lat2*p) * (1-cos((lon2-lon1)*p)) / 2;
+
+        let d = 2 * r * asin(sqrt(a)); //#2*R*asin
+        //console.log(`Distance GOT: ${d}`);
+        d = roundUp(d, 0);
+        return d;
         //.then(destinationResponse => console.table(destinationResponse));
         
 
@@ -73,30 +114,65 @@ export default class GeoApi {
         // closestLat = 0;
         // iValue = '';
         // closestLon = 0;
+        let distanceArray = [];
+        let getOrigin = getStore(this.userAddressStore);
+        //console.table(`LINE 86: ${getOrigin}`);
+        let origin = JSON.stringify(getOrigin);
+        //console.table(origin.ul0);
 
-        let origin = getFormValues()
+        let originLatLon = await this.forwardPGet(this.userLatLonStore,origin.ul0, origin.ul1, origin.ul2, origin.ul3);
+        originLatLon = JSON.stringify(originLatLon);
+        //console.log(originLatLon);
+        
+
+        origin = JSON.stringify(origin);
         let destination = this.fireballs; //"40.609469,-111.951818"; //
-        destination = this.reversePGet(destination); 
-        console.table(`Origin: ${destination}`);
-        let tenClosestFireballs = this.getClosest('-33.876304, -60.573260');
-        console.log(tenClosestFireballs)
-        console.log(this.fireballs)
+        
+        if (localStorage.getItem(this.fbLatLongStore)) {
+            destination = localStorage.getItem(this.fbLatLongStore);
+
+        } else {
+            for (let i = 0; i < destination.length; i++) {
+                //if (destination[i] != null)
+                //console.table(`Origin: ${destination[i]}`);
+                let lat_long = destination[i].split(",");
+                //console.table(`${i}: LAT_LONG: ${lat_long}`);
+                
+                //destination = this.reversePGet(destination[i]); 
+                //distanceArray.push(await this.reversePGet(lat_long[0], lat_long[1]));
+                localStore(this.fbLatLongStore, `fb${i}` , [lat_long[0], lat_long[1]]);
+            };
+        };
+        //console.table(`LINE 101: ${origin}`);
+        let userLatLon = localStorage.getItem(this.userLatLonStore);
+        let userLatLonSplit = userLatLon.split(',');
+        let userLat = userLatLonSplit[0];
+        let userLon = userLatLonSplit[1];
+
+        //console.log(`USERLATLONSTORE 126: ${userLatLonSplit[0]}`);
+        this.tenClosestFireballs = this.getClosest(`${userLat}, ${userLon}'`); //OG this.getClosest('-33.876304, -60.573260');
+        localStorage.setItem(this.closestFBStore, this.tenClosestFireballs);
+        //console.table(this.tenClosestFireballs);
+        //console.log(this.fireballs);
 
         
-        this.distanceGet(origin, destination);
+        //OG this.distanceGet(origin, destination);
+        //this.distanceGet(origin, distanceArray);
         
-        let distance = await this.distanceGet(origin, destination);
-        console.table(distance);
+        //OG let distance = await this.distanceGet(origin, destination);
+        //let distance = await this.distanceGet(origin, distanceArray);
+        //distance = JSON.stringify(distance);
+        //console.table(`DISTANCE LINE 111: ${distance}`);
 
     }
     getClosest(origin){ 
         let closestDistance = 99999999999999;
         let tenClosestElements = [];
-        console.log(origin)
+        //console.log(`ORIGIN LINE 117: ${origin}`);
         let originSplit = origin.split(',');
-        console.log(this.fireballs)
-        let closestElement = ''
-        for (let i = 0; i < 5; i++){
+        //console.log(`ORIGIN LINE 119: ${this.fireballs}`);
+        let closestElement = '';
+        for (let i = 0; i < 4; i++){
         this.fireballs.map((element)=>{
             if (tenClosestElements.includes(element)){
                 return false;
@@ -117,7 +193,7 @@ export default class GeoApi {
             if (distance<closestDistance){
                 closestDistance = distance;
                 closestElement = element;
-                console.log(`${element}  :  ${lattitudeAdded}`)
+                //console.log(`${element}  :  ${lattitudeAdded}`)
             }
         }
         });
