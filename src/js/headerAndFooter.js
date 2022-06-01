@@ -1,2 +1,2 @@
 import { loadHeaderFooter } from "./utils";
-loadHeaderFooter('.header','.footer');
+loadHeaderFooter(".header", ".footer");
