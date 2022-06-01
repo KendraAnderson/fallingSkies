@@ -1,100 +1,89 @@
-import ConnectToNasa from "./connectToNasa.js";
-let connect = new ConnectToNasa;
 //let fireball = await connect.getData();
 //console.table(fireball);
 
-
 export function getFormValues() {
-    
-    // array
-    let formData = [];
-    // Form value get
-    const address = document.forms["userLocation"]["address"].value;
-    const city = document.forms["userLocation"]["city"].value;
-    const state = document.forms["userLocation"]["state"].value;
-    const country = document.forms["userLocation"]["country"].value;
-    // array push
-    formData.push(address, city, state, country);
-    //console.table(formData); //testing
+  // array
+  let formData = [];
+  // Form value get
+  const address = document.forms["userLocation"]["address"].value;
+  const city = document.forms["userLocation"]["city"].value;
+  const state = document.forms["userLocation"]["state"].value;
+  const country = document.forms["userLocation"]["country"].value;
+  // array push
+  formData.push(address, city, state, country);
+  //console.table(formData); //testing
 
-    return formData;
+  return formData;
 
-    // };
-};
-
-
+  // };
+}
 
 export async function placeMap() {
-    //OLD CODE
-            // const form = getFormValues();
+  //OLD CODE
+  // const form = getFormValues();
 
-            // let addressArray = form[0].split(" ");
-            // addressArray = addressArray.join('+');
-            
-            // let cityArray = form[1].split(" ");
-            // cityArray = cityArray.join('+');
+  // let addressArray = form[0].split(" ");
+  // addressArray = addressArray.join('+');
 
-            // let state = form[2];
+  // let cityArray = form[1].split(" ");
+  // cityArray = cityArray.join('+');
 
-            // let countryArray = form[3].split(' ');
-            // countryArray = countryArray.join('+');
-            
-    // ADJUSTED CODE for localeStorage
-    const form = JSON.parse(localStorage.getItem("userLocation"));
+  // let state = form[2];
 
-    let addressArray = form.ul0.split(" ");
-        
-    addressArray = addressArray.join('+');
-    //console.log(addressArray);
-    
-    let cityArray = form.ul1.split(" ");
-    cityArray = cityArray.join('+');
+  // let countryArray = form[3].split(' ');
+  // countryArray = countryArray.join('+');
 
-    let state = form.ul2;
+  // ADJUSTED CODE for localeStorage
+  const form = JSON.parse(localStorage.getItem("userLocation"));
 
-    let countryArray = form.ul3.split(' ');
-    countryArray = countryArray.join('+');
-    //console.log(addressArray, cityArray, state, countryArray);
+  let addressArray = form.ul0.split(" ");
 
-    let map = `
+  addressArray = addressArray.join("+");
+  //console.log(addressArray);
+
+  let cityArray = form.ul1.split(" ");
+  cityArray = cityArray.join("+");
+
+  let state = form.ul2;
+
+  let countryArray = form.ul3.split(" ");
+  countryArray = countryArray.join("+");
+  //console.log(addressArray, cityArray, state, countryArray);
+
+  let map = `
     
         <iframe width="100%" height="100%" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=${addressArray},${cityArray}+${state}+${countryArray}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
         </iframe>
     
               `;
-    
-    // Old placement code
-        //document.getElementById('mapouter').innerHTML = map;
-    // Replaced with Return map variable for placing in DOM
-    return map;
+
+  // Old placement code
+  //document.getElementById('mapouter').innerHTML = map;
+  // Replaced with Return map variable for placing in DOM
+  return map;
 }
 
 export async function placeDOM() {
-    // paths
-    const userHead = document.getElementById('userHead');
-    const userAddPath = document.getElementById('userAddress');
-    const userCityPath = document.getElementById('userCity');
-    const userStatePath = document.getElementById('userState');
-    const userCountryPath = document.getElementById('userCountry');
-    const userMap = document.getElementById('userMap');
+  // paths
+  const userHead = document.getElementById("userHead");
+  const userAddPath = document.getElementById("userAddress");
+  const userCityPath = document.getElementById("userCity");
+  const userStatePath = document.getElementById("userState");
+  const userCountryPath = document.getElementById("userCountry");
+  const userMap = document.getElementById("userMap");
 
-    // get form values
-    const formData = await getFormValues();
-    const mapData = await placeMap();
+  // get form values
+  const formData = await getFormValues();
+  const mapData = await placeMap();
 
-
-    // form DOM placement
-    userHead.textContent = "Your Location"; 
-    userAddPath.innerHTML = "Address: " + formData[0];
-    userCityPath.innerHTML = "City: " + formData[1];
-    userStatePath.innerHTML = "State: " + formData[2];
-    userCountryPath.innerHTML = "Country: " + formData[3];
-    userMap.innerHTML = mapData;
-
+  // form DOM placement
+  userHead.textContent = "Your Location";
+  userAddPath.innerHTML = "Address: " + formData[0];
+  userCityPath.innerHTML = "City: " + formData[1];
+  userStatePath.innerHTML = "State: " + formData[2];
+  userCountryPath.innerHTML = "Country: " + formData[3];
+  userMap.innerHTML = mapData;
 }
-
-
-
 
 // document.getElementById('submitLocation').addEventListener('click', (e) => {
 //     e.preventDefault();
@@ -109,11 +98,6 @@ export async function placeDOM() {
 
 // //     }
 //   });
-
-
-
-
-
 
 //document.getElementById('submitLocation').addEventListener("click" () => {getFormValues});
 
@@ -133,11 +117,8 @@ export async function placeDOM() {
 //         formData.push(address, city, country);
 //         console.log(formData);
 
-
 //         };
 //     };
-
-
 
 // };
 
