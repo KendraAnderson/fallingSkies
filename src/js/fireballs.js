@@ -1,4 +1,4 @@
-
+import GeoApi from './geoAPI.js';
 
 export default class Fireballs {
     
@@ -17,22 +17,46 @@ export default class Fireballs {
     }
     
     async fireballCard(i) {
-        // get information
-        //const closest
-        let card = `
-        <div class="fireballLocaleCont">
-            <div class="fireCard">
-                <h2>Closest Fireball</h2>
-                <p id="fireballLat[${i}]">Latitude: ${i}</p>
-                <p id="fireballLong[${i}]">Longitude: ${i}</p>
-                <p id="fireballDistance[${i}]">Distance: ${i}</p>
-                <div class="fbMap[${i}]">
-                
+        let cardDoc = document.getElementById("fireballCont");
+
+        //let fbs = JSON.stringify(localStorage.getItem('closestFBs'));
+        let fbs = localStorage.getItem('closestFBs');
+        let og = localStorage.getItem('userLatLon');
+        
+        fbs = fbs.split(",");
+        og = og.split(", ");
+        og = og.join(",");
+        console.table(og);
+        //console.table(fbs);
+        for (let i = 0; i < fbs.length; i++) {
+            const g = new GeoApi();
+            
+            let distance = await g.distanceGet(og, `${fbs[i]},${fbs[i+1]}`);
+            distance = JSON.stringify(distance);
+            if (fbs[1] === undefined || fbs[i+1] === undefined) {
+                console.log(`Distance could not be found for Fireball ${i}`)
+            } else {
+                let map = await this.fbMap(fbs[i], fbs[i+1]);
+
+                let card = `
+                <div class="fireballLocaleCont">
+                    <div class="fireCard">
+                        <h2>Closest Fireball</h2>
+                        <p id="fireballLat[${i}]">Latitude: ${fbs[i]}</p>
+                        <p id="fireballLong[${i}]">Longitude: ${fbs[i+1]}</p>
+                        <p id="fireballDistance[${i}]">Distance: ${distance} km</p>
+                        <div class="fbMap[${i}]">
+                            ${map}
+                        </div>
+                    </div>  
                 </div>
-            </div>  
-        </div>
-        `;
-        return card;
+                `;
+                cardDoc.innerHTML = cardDoc.innerHTML + card;
+            }
+            }
+
+
+        //return card;
     }
 
     async fireballPlaceDOM() {
@@ -49,8 +73,16 @@ export default class Fireballs {
 
     }
 
+    async fbMap(lat, long) {
+        let map = `
+    
+        <iframe width="100%" height="100%" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=${lat}%20${long}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+        </iframe>
+    
+              `
+
+        return map;
 
 
-
-
+    }
 }

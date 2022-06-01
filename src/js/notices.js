@@ -23,7 +23,7 @@ export default class Notices {
     }
 
     displayNotice() {
-        console.log(this.notice);
+        //console.log(this.notice);
         let noticeTitle = document.getElementById("noticeTitle");
         noticeTitle.innerHTML = this.notice.title;
 

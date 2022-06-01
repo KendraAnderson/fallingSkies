@@ -39,8 +39,8 @@ export async function convertToJson(res) {
     let button = document.querySelector('#navBtn');
     button.addEventListener('click',()=>{displayNav(nav,button)});
   }
-export async function distance(latOr,
-    latDest, lonOr, lonDest)
+export async function distance( 
+  latOr, latDest, lonOr, lonDest)
 {
 
 // The math module contains a function
@@ -76,3 +76,4 @@ function displayNav(nav,btn){
     btn.style.boxShadow="none";
   }
 }
+
