@@ -28,17 +28,14 @@ let cToN = new ConnectToNasa();
 export default class GeoApi {
   init() {
     return __async(this, null, function* () {
-      this.forwardGeo = "http://api.positionstack.com/v1/forward?access_key=";
+      this.forwardGeo = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+      this.geoToken = "&key=AIzaSyDWZ8bRVoSbiczpfVBivWnvNmH4T-B9n7I";
       this.reverseGeo = "http://api.positionstack.com/v1/reverse?access_key=";
       this.positionstackKey = "0f450b6879124d364586219d30b6bb14";
       this.query = "&query=";
       this.dmtoken = "QBxCMLC6DVxM9Lkc0uYokC8ZbxU9P";
       this.gToken = "AIzaSyCmaff4C42bJbYWUp74S_yc4oWWwOkwZog";
-      this.origin = "7509 S 2840 W, West Jordan, UT 84084, USA";
-      this.destination = "1904 152 ave, Edmonton T5Y 2R7, AB, Canada";
       this.dmtoken = "QBxCMLC6DVxM9Lkc0uYokC8ZbxU9P";
-      this.origin = "7509 S 2840 W, West Jordan, UT 84084, USA";
-      this.destination = "1904 152 ave, Edmonton T5Y 2R7, AB, Canada";
       this.fireballs = yield cToN.getData();
       this.tenClosestFireballs = [];
       this.fbLatLongStore = "FBallStore";
@@ -49,12 +46,22 @@ export default class GeoApi {
   }
   forwardPGet(keyName, address, city, state, country) {
     return __async(this, null, function* () {
-      const link = this.forwardGeo + this.positionstackKey + this.query + `${address},${city} ${state},${country}`;
+      let splitAdd = address.split(" ");
+      let splitCity = city.split(" ");
+      let splitState = state.split(" ");
+      let splitCountry = country.split(" ");
+      let joinedAdd = splitAdd.join("+");
+      let joinedCity = splitCity.join("+");
+      let joinedState = splitState.join("+");
+      let joinedCountry = splitCountry.join("+");
+      let addressArray = [joinedAdd, joinedCity, joinedState, joinedCountry];
+      let query = addressArray.join(",");
+      const link = this.forwardGeo + query + this.geoToken;
       yield fetch(link).then(function(response) {
         return response.json();
       }).then(function(jsonObject) {
-        const userInfo = jsonObject["data"];
-        localStorage.setItem(keyName, `${userInfo[0].latitude}, ${userInfo[0].longitude}`);
+        const userInfo = jsonObject["results"];
+        localStorage.setItem(keyName, `${userInfo[0].geometry.location.lat}, ${userInfo[0].geometry.location.lng}`);
       });
     });
   }
