@@ -246,9 +246,15 @@ nav ul li a:hover{
 }
 
 .about div img{
-    width: 100%;
-    border: 1px solid black;
-    border-radius: 180px;
+    width: 90%;
+    display: block;
+    border: 1px solid transparent;
+    border-radius: 100%;
+    margin: auto;
+}
+.about div{
+    border: 1px solid #005bee5d;
+    padding: 30px 10px 10px;
 }
 
 /*--------------------- Image Banner ----*/
@@ -279,6 +285,10 @@ nav ul li a:hover{
 .userLocaleCont h2, .userLocaleCont p,
 .fireCard h2, .fireCard p {
     padding: 0 0 0 .5rem;
+}
+.fireballs-main img{
+    width: 100%;
+    max-width: 700px;
 }
 
 
@@ -368,8 +378,15 @@ nav ul li a:hover{
     .firecard {
         width: 100%
     }
-
-
+    .fireballs-main img{
+        width: 100%;
+        max-width: 700px;
+        display: block;
+        margin: auto;
+    }
+    .fireballs-main{
+        margin: 20px;
+    }
 
 
 
@@ -408,6 +425,10 @@ nav ul li a:hover{
     nav ul li a{
         padding-left: 0;
         text-align: center;
+    }
+    .fireballs-main img{
+        float: right;
+        margin: 20px;
     }
 }
 
