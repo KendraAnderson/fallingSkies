@@ -6,7 +6,7 @@ html {
     
     background-image: url("/images/backsplash.png");
     background-repeat: no-repeat;
-    background-size: auto 100%;
+    background-size: cover;
     
     color: white;
     font-family: 'Helvetica';
@@ -348,9 +348,6 @@ nav ul li a:hover{
         margin: 0;
     }
 
-    .datacard {
-
-    }
 
     .fireCard {
         
