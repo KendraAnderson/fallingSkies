@@ -21,8 +21,8 @@ export default class Fireballs {
 
         //let fbs = JSON.stringify(localStorage.getItem('closestFBs'));
         let fbs = localStorage.getItem('closestFBs');
-        console.log("Just pulled the FBS in fireball Card");
-        console.log(fbs);
+        //console.log("Just pulled the FBS in fireball Card");
+        //console.log(fbs);
         let og = localStorage.getItem('userLatLon');
         let count = 0
         fbs = fbs.split(",");
@@ -61,7 +61,7 @@ export default class Fireballs {
             }
             }
 
-            localStorage.removeItem('closestFBs');
+            //localStorage.removeItem('closestFBs');
         //return card;
     }
 
