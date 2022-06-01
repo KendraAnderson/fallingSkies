@@ -2,7 +2,7 @@ import ConnectToNasa from './connectToNasa.js';
 import { getFormValues } from './formPull.js';
 import { localStore } from './localStorage.js';
 import { getStore } from './localStorage.js';
-
+import Fireballs from './fireballs.js';
 
 let cToN = new ConnectToNasa;
 
@@ -38,7 +38,7 @@ export default class GeoApi {
     async forwardPGet(keyName, address, city, state, country) {
         //For address input use forwardPGet
         const link = this.forwardGeo + this.positionstackKey + this.query + `${address},${city} ${state},${country}`;
-        //console.log(`LINK fpg: ${link}`);
+        console.log(`LINK fpg: ${link}`);
         //let latLon =
         
         await fetch(link)
@@ -116,9 +116,9 @@ export default class GeoApi {
         // closestLon = 0;
         let distanceArray = [];
         let getOrigin = getStore(this.userAddressStore);
-        //console.table(`LINE 86: ${getOrigin}`);
-        let origin = JSON.stringify(getOrigin);
-        //console.table(origin.ul0);
+        console.table(`LINE 86: ${getOrigin}`);
+        let origin = JSON.parse(getOrigin);
+        console.table(origin.ul0);
 
         let originLatLon = await this.forwardPGet(this.userLatLonStore,origin.ul0, origin.ul1, origin.ul2, origin.ul3);
         originLatLon = JSON.stringify(originLatLon);
@@ -152,6 +152,11 @@ export default class GeoApi {
         //console.log(`USERLATLONSTORE 126: ${userLatLonSplit[0]}`);
         this.tenClosestFireballs = this.getClosest(`${userLat}, ${userLon}'`); //OG this.getClosest('-33.876304, -60.573260');
         localStorage.setItem(this.closestFBStore, this.tenClosestFireballs);
+        console.log("Just set the closest FB in getTheDistance");
+        
+        let f = new Fireballs();
+        f.fireballCard(0);
+        console.log("Ran past the fireball Card");
         //console.table(this.tenClosestFireballs);
         //console.log(this.fireballs);
 

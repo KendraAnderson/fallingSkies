@@ -21,28 +21,32 @@ export default class Fireballs {
 
         //let fbs = JSON.stringify(localStorage.getItem('closestFBs'));
         let fbs = localStorage.getItem('closestFBs');
+        console.log("Just pulled the FBS in fireball Card");
+        console.log(fbs);
         let og = localStorage.getItem('userLatLon');
-        
+        let count = 0
         fbs = fbs.split(",");
         og = og.split(", ");
         og = og.join(",");
         //console.table(og);
         //console.table(fbs);
-        for (let i = 0; i < fbs.length; i++) {
+        cardDoc.innerHTML = ``;
+        
+        for (let i = 0; i < fbs.length; i = i + 2) {
             const g = new GeoApi();
             
             let distance = await g.distanceGet(og, `${fbs[i]},${fbs[i+1]}`);
             distance = JSON.stringify(distance);
             if (fbs[1] === undefined || fbs[i+1] === undefined) {
-                console.log(`Distance could not be found for Fireball ${i+1}`)
+                console.log(`Distance could not be found for Fireball ${i}`)
             } else {
                 let map = await this.fbMap(fbs[i], fbs[i+1]);
-
+                count = count + 1;
                 let card = `
                 <div class="fireballLocaleCont">
                     <div class="fireCard">
                         <div class="fbText" id="fbText${i}">
-                            <h2>Fireball ${i+1}</h2>
+                            <h2>Fireball ${count}</h2>
                             <p id="fireballLat[${i}]">Latitude: ${fbs[i]}</p>
                             <p id="fireballLong[${i}]">Longitude: ${fbs[i+1]}</p>
                             <p id="fireballDistance[${i}]">Distance: ${distance} km</p>
@@ -57,7 +61,7 @@ export default class Fireballs {
             }
             }
 
-
+            localStorage.removeItem('closestFBs');
         //return card;
     }
 

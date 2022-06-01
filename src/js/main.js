@@ -42,6 +42,7 @@ g.init();
 
 document.getElementById('submitLocation').addEventListener('click', (e) => {
     e.preventDefault();
+    localStorage.clear();
     let myForm = document.forms[0];   
     let chk_status = myForm.checkValidity();
     myForm.reportValidity();
@@ -75,7 +76,7 @@ document.getElementById('submitLocation').addEventListener('click', (e) => {
 
         placeDOM();
         placeMap();
-        f.fireballCard(0);
+        //f.fireballCard(0);
     }
 });
 
