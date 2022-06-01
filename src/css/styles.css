@@ -4,6 +4,9 @@
 /*----------------Mobile View Initial CSS----*/
 html {
     background-image: url("/images/backsplash.png");
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    
     color: white;
     font-family: 'Helvetica';
 }
@@ -61,18 +64,27 @@ h1, h2, h3, h4, h5, h6 {
     height: 80px;
 }
 
-div {
-    padding: 1rem;
+.link {
+    color: #ffffff;
 }
 
 .highlight {
     color: #005aee;
 }
-
+/*----------------- Notices ------------*/
 .notices {
-    border: 2px solid #005bee88;
+    box-shadow: 2px 10px 10px #005bee88;
+    background-color: rgba(228, 210, 150, 0.7) ;
+    border-radius: 15px;
     padding: auto;
     margin: 0;
+    padding: 1rem;
+}
+
+.warning {
+    color: red;
+    font-size: larger;
+    font-weight: bolder;
 }
 
 .notices p {
@@ -86,11 +98,16 @@ div {
     margin: 0;
     padding-bottom: 5px;
 }
-
+/*-------------------- Form -----------*/
 .locationForm {
     margin: auto;
-    padding: 20px;
+    padding: 1.75rem;
     max-width: 500px;
+}
+
+.formField {
+    display: flex;
+    flex-direction: column;
 }
 
 .address {
@@ -116,6 +133,7 @@ form input {
     border: none;
     border-radius: 3px;
     margin: 0;
+    padding: 1rem;
 }
 
 #submitLocation {
@@ -125,6 +143,11 @@ form input {
 .footer {
     display: flex;
     justify-content: center;
+    
+}
+
+.footer-logo {
+    padding: 1.5rem;
 }
 
 .logoMin {
@@ -156,9 +179,7 @@ form input {
     text-align: center;
 }
 
-.warning {
-    color: red;
-}
+
 
 nav{
     display: none;
@@ -229,6 +250,38 @@ nav ul li a:hover{
     border-radius: 180px;
 }
 
+/*--------------------- Image Banner ----*/
+.imageBanner {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    margin: 0
+}
+
+#bannerImage {
+    width: 100%;
+    border: 4px solid #ffffff;
+}
+
+/*-------------------- Location cards ----- */
+
+.userLocaleCont, .fireCard {
+    background-color: rgba(0, 90, 238,.2);
+    border-radius: 1rem;
+    overflow: hidden;
+    margin: 0.5rem;
+}
+
+.userLocaleCont h2, .userLocaleCont p,
+.fireCard h2, .fireCard p {
+    padding: 0 0 0 .5rem;
+}
+
+
+
 @media only screen and (min-width: 500px) {
     .map {
         display: flex;
@@ -245,6 +298,8 @@ nav ul li a:hover{
     .userLocaleCont {
         grid-column: 1;
     }
+
+
 
     .dataCard {
         grid-column: 1;

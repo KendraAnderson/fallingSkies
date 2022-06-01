@@ -26,7 +26,7 @@ export default class Fireballs {
         fbs = fbs.split(",");
         og = og.split(", ");
         og = og.join(",");
-        console.table(og);
+        //console.table(og);
         //console.table(fbs);
         for (let i = 0; i < fbs.length; i++) {
             const g = new GeoApi();
@@ -34,14 +34,14 @@ export default class Fireballs {
             let distance = await g.distanceGet(og, `${fbs[i]},${fbs[i+1]}`);
             distance = JSON.stringify(distance);
             if (fbs[1] === undefined || fbs[i+1] === undefined) {
-                console.log(`Distance could not be found for Fireball ${i}`)
+                console.log(`Distance could not be found for Fireball ${i+1}`)
             } else {
                 let map = await this.fbMap(fbs[i], fbs[i+1]);
 
                 let card = `
                 <div class="fireballLocaleCont">
                     <div class="fireCard">
-                        <h2>Closest Fireball</h2>
+                        <h2>Fireball ${i+1}</h2>
                         <p id="fireballLat[${i}]">Latitude: ${fbs[i]}</p>
                         <p id="fireballLong[${i}]">Longitude: ${fbs[i+1]}</p>
                         <p id="fireballDistance[${i}]">Distance: ${distance} km</p>
