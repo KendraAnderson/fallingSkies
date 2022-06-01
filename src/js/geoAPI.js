@@ -9,19 +9,16 @@ export default class GeoApi {
   async init() {
     //Positionstack.com
     //Global variables
-    this.forwardGeo = "http://api.positionstack.com/v1/forward?access_key=";
+    this.forwardGeo = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    this.geoToken = "&key=AIzaSyDWZ8bRVoSbiczpfVBivWnvNmH4T-B9n7I";
     this.reverseGeo = "http://api.positionstack.com/v1/reverse?access_key=";
     this.positionstackKey = "0f450b6879124d364586219d30b6bb14";
     this.query = "&query=";
     this.dmtoken = "QBxCMLC6DVxM9Lkc0uYokC8ZbxU9P";
     this.gToken = "AIzaSyCmaff4C42bJbYWUp74S_yc4oWWwOkwZog";
-    this.origin = "7509 S 2840 W, West Jordan, UT 84084, USA";
-    this.destination = "1904 152 ave, Edmonton T5Y 2R7, AB, Canada";
     //Distance Matrix AI (distancematrix.ai)
     //Global variables
     this.dmtoken = "QBxCMLC6DVxM9Lkc0uYokC8ZbxU9P";
-    this.origin = "7509 S 2840 W, West Jordan, UT 84084, USA";
-    this.destination = "1904 152 ave, Edmonton T5Y 2R7, AB, Canada";
     this.fireballs = await cToN.getData();
     this.tenClosestFireballs = [];
     //this.fireballs = JSON.stringify(this.fireballs);
@@ -34,11 +31,25 @@ export default class GeoApi {
 
   async forwardPGet(keyName, address, city, state, country) {
     //For address input use forwardPGet
+    // handle spaces in each
+    let splitAdd = address.split(' ');
+    let splitCity = city.split(' ');
+    let splitState = state.split(' ');
+    let splitCountry = country.split(' ');
+
+    let joinedAdd = splitAdd.join('+');
+    let joinedCity = splitCity.join('+');
+    let joinedState = splitState.join('+');
+    let joinedCountry = splitCountry.join('+');
+
+
+    let addressArray = [joinedAdd, joinedCity, joinedState, joinedCountry];
+    let query = addressArray.join(',');
+    //console.log(query);
     const link =
       this.forwardGeo +
-      this.positionstackKey +
-      this.query +
-      `${address},${city} ${state},${country}`;
+      query +
+      this.geoToken;
     //console.log(`LINK fpg: ${link}`);
     //let latLon =
 
@@ -48,12 +59,14 @@ export default class GeoApi {
       })
       .then(function (jsonObject) {
         //console.table(jsonObject);
-        const userInfo = jsonObject["data"];
-        //console. table(userInfo);
+        const userInfo = jsonObject['results'];
+        //console.table(userInfo);
+        //console.table(userInfo[0].geometry.location.lat);
         localStorage.setItem(
           keyName,
-          `${userInfo[0].latitude}, ${userInfo[0].longitude}`
+          `${userInfo[0].geometry.location.lat}, ${userInfo[0].geometry.location.lng}`
         );
+        
       });
     //.then(forwardResponse => console.table(forwardResponse));
   }
