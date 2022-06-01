@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Falling Skies</title>
+  </head>
+
+  <body>
+    <header class="header"></header>
+    <main>
+      <div class="imageWarn">
+        <div class="imageBanner">
+          <h2>Image of the Day</h2>
+        </div>
+        <div class="notices">
+          <p>
+            <span class="warning">Warning: </span><span id="noticeTitle"></span>
+          </p>
+          <p>Date: <span id="noticeDate"></span></p>
+          <p>Find Out More: <a id="noticeLink" href="#">Click Here</a></p>
+        </div>
+      </div>
+      <!--<div class="radioForm">
+          <form action="#">
+            <fieldset>
+              <legend>Select Type</legend>
+              <input type="radio" name="pickAType"> Asteroid
+              <input type="radio" name="pickAType"> Fireball
+            </fieldset>
+          </form>  
+        </div> -->
+      <div class="locationForm">
+        <form name="userLocation" id="userLocation">
+          <fieldset class="formField">
+            <legend>Location Information</legend>
+            <label for="address" id="address">Address</label>
+            <input type="text" id="address" name="address" />
+            <br />
+            <label for="city" id="city">City</label>
+            <input type="text" id="city" name="city" />
+            <br />
+            <label for="state" id="state">State</label>
+            <input type="text" id="state" name="state" />
+            <br />
+            <label for="country" id="country">Country</label>
+            <input type="text" id="country" name="country" />
+            <!-- <label for="city" id="city">Other Info</label>
+              <input type="text"> -->
+          </fieldset>
+          <input type="submit" id="submitLocation" />
+        </form>
+      </div>
+      <div class="map">
+        <div id="dataCard">
+          <div class="userLocaleCont">
+            <h2 id="userHead"></h2>
+            <p id="userAddress"></p>
+            <p id="userCity"></p>
+            <p id="userState"></p>
+            <p id="userCountry"></p>
+            <div id="userMap"></div>
+          </div>
+          <div class="fireCards">
+            <div class="fireballLocaleCont" id="fireballCont">
+              <!-- <div class="fireCard">
+                  <h2>Closest Fireball</h2>
+                  <p id="fireballLat">Latitude:</p>
+                  <p id="fireballLong">Longitude:</p>
+                  <p id="fireballDistance">Distance:</p>
+                  <div class="fbMap">
+
+                  </div>
+                </div>   -->
+            </div>
+            <!-- <div id="fireMap">
+
+              </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- <button id="consoleButton">Console Log</button>
+        <button id="consoleButton2">Console Log 2</button>
+        <button id="consoleButton3">Console Log 3</button> -->
+    </main>
+
+    <footer class="footer"></footer>
+    <script src="./js/main.js" type="module"></script>
+    <!-- <script src="./js/formPull.js" type="module"></script> -->
+    <!-- <script src="./js/geoAPI.js" type="module"></script> -->
+  </body>
+</html>
