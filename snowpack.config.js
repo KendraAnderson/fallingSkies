@@ -14,7 +14,7 @@ module.exports = {
   experiments: {
     optimize: {
       // 'bundle': true,
-      minify: true,
+      minify: false,
       target: "es2015",
     },
   },

@@ -1,25 +1,97 @@
-var o=(d,i,e)=>new Promise((t,l)=>{var a=r=>{try{n(e.next(r))}catch(s){l(s)}},c=r=>{try{n(e.throw(r))}catch(s){l(s)}},n=r=>r.done?t(r.value):Promise.resolve(r.value).then(a,c);n((e=e.apply(d,i)).next())});import f from"./geoAPI.js";export default class m{fireballMap(i,e){return o(this,null,function*(){const t="%2C";let l=`
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (result) => {
+      return result.done ? resolve(result.value) : Promise.resolve(result.value).then(fulfilled, rejected);
+    };
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
+import GeoApi from "./geoAPI.js";
+export default class Fireballs {
+  fireballMap(lat, long) {
+    return __async(this, null, function* () {
+      const comma = "%2C";
+      let map = `
     
-        <iframe width="100%" height="100%" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/search?q=${i}${t}${e}&key=AIzaSyDUcCBfta5KPWLm3OxTK2Xv9Vv5ufEjc2c" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+        <iframe width="100%" height="100%" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/search?q=${lat}${comma}${long}&key=AIzaSyDUcCBfta5KPWLm3OxTK2Xv9Vv5ufEjc2c" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
         </iframe>
     
-              `;return l})}fireballCard(){return o(this,null,function*(){let i=document.getElementById("fireballCont"),e=localStorage.getItem("closestFBs"),t=localStorage.getItem("userLatLon"),l=0;e=e.split(","),t=t.split(", "),t=t.join(","),i.innerHTML="";for(let a=0;a<e.length;a=a+2){const c=new f;let n=yield c.distanceGet(t,`${e[a]},${e[a+1]}`);if(n=JSON.stringify(n),e[1]===void 0||e[a+1]===void 0)console.log(`Distance could not be found for Fireball ${a}`);else{let r=yield this.fbMap(e[a],e[a+1]);l=l+1;let s=`
+              `;
+      return map;
+    });
+  }
+  fireballCard() {
+    return __async(this, null, function* () {
+      let cardDoc = document.getElementById("fireballCont");
+      let fbs = localStorage.getItem("closestFBs");
+      let og = localStorage.getItem("userLatLon");
+      let count = 0;
+      fbs = fbs.split(",");
+      og = og.split(", ");
+      og = og.join(",");
+      cardDoc.innerHTML = "";
+      for (let i = 0; i < fbs.length; i = i + 2) {
+        const g = new GeoApi();
+        let distance = yield g.distanceGet(og, `${fbs[i]},${fbs[i + 1]}`);
+        distance = JSON.stringify(distance);
+        if (fbs[1] === void 0 || fbs[i + 1] === void 0) {
+          console.log(`Distance could not be found for Fireball ${i}`);
+        } else {
+          let map = yield this.fbMap(fbs[i], fbs[i + 1]);
+          count = count + 1;
+          let card = `
                 <div class="fireballLocaleCont">
                     <div class="fireCard">
-                        <div class="fbText" id="fbText${a}">
-                            <h2>Fireball ${l}</h2>
-                            <p id="fireballLat[${a}]">Latitude: ${e[a]}</p>
-                            <p id="fireballLong[${a}]">Longitude: ${e[a+1]}</p>
-                            <p id="fireballDistance[${a}]">Distance: ${n} km</p>
+                        <div class="fbText" id="fbText${i}">
+                            <h2>Fireball ${count}</h2>
+                            <p id="fireballLat[${i}]">Latitude: ${fbs[i]}</p>
+                            <p id="fireballLong[${i}]">Longitude: ${fbs[i + 1]}</p>
+                            <p id="fireballDistance[${i}]">Distance: ${distance} km</p>
                         </div>
-                        <div class="fbMap" id="fbMap${a}">
-                            ${r}
+                        <div class="fbMap" id="fbMap${i}">
+                            ${map}
                         </div>
                     </div>  
                 </div>
-                `;i.innerHTML=i.innerHTML+s}}})}fireballPlaceDOM(){return o(this,null,function*(){let i=["this","that","the other"],e=document.getElementById("fireballCont");for(let t=-1;t<i.length;t++){let l=this.fireballCard(t);e.innerHTML=e.innerHTML+l}})}fbMap(i,e){return o(this,null,function*(){let t=`
+                `;
+          cardDoc.innerHTML = cardDoc.innerHTML + card;
+        }
+      }
+    });
+  }
+  fireballPlaceDOM() {
+    return __async(this, null, function* () {
+      let thisArray = ["this", "that", "the other"];
+      let fireHTML = document.getElementById("fireballCont");
+      for (let i = -1; i < thisArray.length; i++) {
+        let card = this.fireballCard(i);
+        fireHTML.innerHTML = fireHTML.innerHTML + card;
+      }
+    });
+  }
+  fbMap(lat, long) {
+    return __async(this, null, function* () {
+      let map = `
     
-        <iframe width="100%" height="100%" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=${i}%20${e}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+        <iframe width="100%" height="100%" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=${lat}%20${long}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
         </iframe>
     
-              `;return t})}}
+              `;
+      return map;
+    });
+  }
+}

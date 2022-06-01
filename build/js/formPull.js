@@ -1,6 +1,68 @@
-var m=(e,o,t)=>new Promise((r,n)=>{var c=a=>{try{u(t.next(a))}catch(i){n(i)}},s=a=>{try{u(t.throw(a))}catch(i){n(i)}},u=a=>a.done?r(a.value):Promise.resolve(a.value).then(c,s);u((t=t.apply(e,o)).next())});export function getFormValues(){let e=[];const o=document.forms.userLocation.address.value,t=document.forms.userLocation.city.value,r=document.forms.userLocation.state.value,n=document.forms.userLocation.country.value;return e.push(o,t,r,n),e}export function placeMap(){return m(this,null,function*(){const e=JSON.parse(localStorage.getItem("userLocation"));let o=e.ul0.split(" ");o=o.join("+");let t=e.ul1.split(" ");t=t.join("+");let r=e.ul2,n=e.ul3.split(" ");n=n.join("+");let c=`
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (result) => {
+      return result.done ? resolve(result.value) : Promise.resolve(result.value).then(fulfilled, rejected);
+    };
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
+export function getFormValues() {
+  let formData = [];
+  const address = document.forms["userLocation"]["address"].value;
+  const city = document.forms["userLocation"]["city"].value;
+  const state = document.forms["userLocation"]["state"].value;
+  const country = document.forms["userLocation"]["country"].value;
+  formData.push(address, city, state, country);
+  return formData;
+}
+export function placeMap() {
+  return __async(this, null, function* () {
+    const form = JSON.parse(localStorage.getItem("userLocation"));
+    let addressArray = form.ul0.split(" ");
+    addressArray = addressArray.join("+");
+    let cityArray = form.ul1.split(" ");
+    cityArray = cityArray.join("+");
+    let state = form.ul2;
+    let countryArray = form.ul3.split(" ");
+    countryArray = countryArray.join("+");
+    let map = `
     
-        <iframe width="100%" height="100%" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=${o},${t}+${r}+${n}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+        <iframe width="100%" height="100%" id="gmap_canvas" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYSN0Vk3gdgRM8mtiaOH7c7eXKsXRjyKk&q=${addressArray},${cityArray}+${state}+${countryArray}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
         </iframe>
     
-              `;return c})}export function placeDOM(){return m(this,null,function*(){const e=document.getElementById("userHead"),o=document.getElementById("userAddress"),t=document.getElementById("userCity"),r=document.getElementById("userState"),n=document.getElementById("userCountry"),c=document.getElementById("userMap"),s=yield getFormValues(),u=yield placeMap();e.textContent="Your Location",o.innerHTML="Address: "+s[0],t.innerHTML="City: "+s[1],r.innerHTML="State: "+s[2],n.innerHTML="Country: "+s[3],c.innerHTML=u})}
+              `;
+    return map;
+  });
+}
+export function placeDOM() {
+  return __async(this, null, function* () {
+    const userHead = document.getElementById("userHead");
+    const userAddPath = document.getElementById("userAddress");
+    const userCityPath = document.getElementById("userCity");
+    const userStatePath = document.getElementById("userState");
+    const userCountryPath = document.getElementById("userCountry");
+    const userMap = document.getElementById("userMap");
+    const formData = yield getFormValues();
+    const mapData = yield placeMap();
+    userHead.textContent = "Your Location";
+    userAddPath.innerHTML = "Address: " + formData[0];
+    userCityPath.innerHTML = "City: " + formData[1];
+    userStatePath.innerHTML = "State: " + formData[2];
+    userCountryPath.innerHTML = "Country: " + formData[3];
+    userMap.innerHTML = mapData;
+  });
+}

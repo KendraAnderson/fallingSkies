@@ -1,1 +1,88 @@
-var i=(e,t,a)=>new Promise((n,o)=>{var c=l=>{try{r(a.next(l))}catch(h){o(h)}},s=l=>{try{r(a.throw(l))}catch(h){o(h)}},r=l=>l.done?n(l.value):Promise.resolve(l.value).then(c,s);r((a=a.apply(e,t)).next())});export function convertToJson(e){return i(this,null,function*(){let t=yield e.json();if(e.ok)return t;throw{name:"servicesError",message:t}})}export function renderWithTemplate(e,t,a,n){return i(this,null,function*(){yield e;let o=e.content.cloneNode(!0);n&&(o=n(o,a)),t.appendChild(o)})}export function loadTemplate(e){return i(this,null,function*(){const t=yield fetch(e).then(n=>n.text());let a=document.createElement("template");return a.innerHTML=t,a})}export function loadHeaderFooter(e,t){return i(this,null,function*(){let a=yield loadTemplate("/partials/header.html"),n=yield loadTemplate("/partials/footer.html"),o=document.querySelector(e),c=document.querySelector(t);yield renderWithTemplate(a,o),renderWithTemplate(n,c);let s=document.querySelector("nav"),r=document.querySelector("#navBtn");r.addEventListener("click",()=>{p(s,r)})})}export function distance(e,t,a,n){return i(this,null,function*(){a=(yield a)*Math.PI/180,n=n*Math.PI/180,e=e*Math.PI/180,t=t*Math.PI/180;let o=n-a,c=t-e,s=Math.pow(Math.sin(c/2),2)+Math.cos(e)*Math.cos(t)*Math.pow(Math.sin(o/2),2),r=2*Math.asin(Math.sqrt(s)),l=6371;return r*l})}function p(e,t){e.style.display==="none"?(e.style.display="block",t.style.boxShadow="1px 1px 5px white"):(e.style.display="none",t.style.boxShadow="none")}
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (result) => {
+      return result.done ? resolve(result.value) : Promise.resolve(result.value).then(fulfilled, rejected);
+    };
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
+export function convertToJson(res) {
+  return __async(this, null, function* () {
+    let jsonResponse = yield res.json();
+    if (res.ok) {
+      return jsonResponse;
+    } else {
+      throw {name: "servicesError", message: jsonResponse};
+    }
+  });
+}
+export function renderWithTemplate(template, parentElement, data, callback) {
+  return __async(this, null, function* () {
+    yield template;
+    let clone = template.content.cloneNode(true);
+    if (callback) {
+      clone = callback(clone, data);
+    }
+    parentElement.appendChild(clone);
+  });
+}
+export function loadTemplate(path) {
+  return __async(this, null, function* () {
+    const templateData = yield fetch(path).then((response) => response.text());
+    let newTemplate = document.createElement("template");
+    newTemplate.innerHTML = templateData;
+    return newTemplate;
+  });
+}
+export function loadHeaderFooter(header, footer) {
+  return __async(this, null, function* () {
+    let headerTemplate = yield loadTemplate("/partials/header.html");
+    let footerTemplate = yield loadTemplate("/partials/footer.html");
+    let headerElement = document.querySelector(header);
+    let footerElement = document.querySelector(footer);
+    yield renderWithTemplate(headerTemplate, headerElement);
+    renderWithTemplate(footerTemplate, footerElement);
+    let nav = document.querySelector("nav");
+    let button = document.querySelector("#navBtn");
+    button.addEventListener("click", () => {
+      displayNav(nav, button);
+    });
+  });
+}
+export function distance(latOr, latDest, lonOr, lonDest) {
+  return __async(this, null, function* () {
+    lonOr = (yield lonOr) * Math.PI / 180;
+    lonDest = lonDest * Math.PI / 180;
+    latOr = latOr * Math.PI / 180;
+    latDest = latDest * Math.PI / 180;
+    let lonDiff = lonDest - lonOr;
+    let latDiff = latDest - latOr;
+    let a = Math.pow(Math.sin(latDiff / 2), 2) + Math.cos(latOr) * Math.cos(latDest) * Math.pow(Math.sin(lonDiff / 2), 2);
+    let c = 2 * Math.asin(Math.sqrt(a));
+    let r = 6371;
+    return c * r;
+  });
+}
+function displayNav(nav, btn) {
+  if (nav.style.display === "none") {
+    nav.style.display = "block";
+    btn.style.boxShadow = "1px 1px 5px white";
+  } else {
+    nav.style.display = "none";
+    btn.style.boxShadow = "none";
+  }
+}

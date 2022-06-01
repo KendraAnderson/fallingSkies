@@ -1,1 +1,54 @@
-var c=(e,t,s)=>new Promise((r,l)=>{var i=a=>{try{o(s.next(a))}catch(p){l(p)}},n=a=>{try{o(s.throw(a))}catch(p){l(p)}},o=a=>a.done?r(a.value):Promise.resolve(a.value).then(i,n);o((s=s.apply(e,t)).next())});import{convertToJson as u}from"./utils.js";const f="K2Jb0JsuuypmVqpf8TxkBxcHhrlkHvCWRuC0z1tc",h="https://ssd-api.jpl.nasa.gov/fireball.api";export default class y{getData(){return c(this,null,function*(){return yield fetch(`${h}&api_key=${f}`).then(t=>u(t)).then(t=>this.arrayNasa(t))})}arrayNasa(t){return c(this,null,function*(){let s=[];return t.data.forEach(r=>{let l=r[3],i=r[4],n=r[5],o=r[6];if(l!=null||n!=null){i==="S"&&(l=l*-1),o==="W"&&(n=n*-1);let a=`${l},${n}`;s.push(a)}}),s})}}
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (result) => {
+      return result.done ? resolve(result.value) : Promise.resolve(result.value).then(fulfilled, rejected);
+    };
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
+import {convertToJson} from "./utils.js";
+const api_key = "K2Jb0JsuuypmVqpf8TxkBxcHhrlkHvCWRuC0z1tc";
+const apiURL = "https://ssd-api.jpl.nasa.gov/fireball.api";
+export default class ConnectToNasa {
+  getData() {
+    return __async(this, null, function* () {
+      return yield fetch(`${apiURL}&api_key=${api_key}`).then((res) => convertToJson(res)).then((response) => this.arrayNasa(response));
+    });
+  }
+  arrayNasa(response) {
+    return __async(this, null, function* () {
+      let arrayNasa = [];
+      response.data.forEach((element) => {
+        let lat = element[3];
+        let latD = element[4];
+        let lon = element[5];
+        let lonD = element[6];
+        if (lat != null || lon != null) {
+          if (latD === "S") {
+            lat = lat * -1;
+          }
+          if (lonD === "W") {
+            lon = lon * -1;
+          }
+          let joined = `${lat},${lon}`;
+          arrayNasa.push(joined);
+        }
+      });
+      return arrayNasa;
+    });
+  }
+}
