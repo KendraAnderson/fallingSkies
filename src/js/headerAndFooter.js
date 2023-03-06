@@ -1,2 +1,2 @@
-import { loadHeaderFooter } from "./utils";
+import { loadHeaderFooter } from "./utils.js";
 loadHeaderFooter(".header", ".footer");

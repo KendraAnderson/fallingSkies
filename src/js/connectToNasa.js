@@ -1,5 +1,5 @@
 //Connect to nasa's API
-import { convertToJson } from "./utils";
+import { convertToJson } from "./utils.js";
 const api_key = "K2Jb0JsuuypmVqpf8TxkBxcHhrlkHvCWRuC0z1tc";
 const apiURL = "https://ssd-api.jpl.nasa.gov/fireball.api";
 
