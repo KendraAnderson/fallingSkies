@@ -1,4 +1,4 @@
-import { convertToJson } from "./utils";
+import { convertToJson } from "./utils.js";
 const eventUrl = "https://eonet.gsfc.nasa.gov/api/v2.1/events?api_key=";
 const key = "KFPsJ58iSGGzrFPIlYncQiDxUMsChaZ1osGtSUj3";
 
