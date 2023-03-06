@@ -1,7 +1,7 @@
 import { loadHeaderFooter } from "./utils.js";
 import GeoApi from "./geoAPI.js";
-import { getFormValues, placeDOM } from "./formPull";
-import { placeMap } from "./formPull";
+import { getFormValues, placeDOM } from "./formPull.js";
+import { placeMap } from "./formPull.js";
 import Notices from "./notices.js";
 import { localStore } from "./localStorage.js";
 //import Fireballs from './fireballs.js';
