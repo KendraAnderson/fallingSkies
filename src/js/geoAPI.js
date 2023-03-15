@@ -62,6 +62,7 @@ export default class GeoApi {
         const userInfo = jsonObject['results'];
         //console.table(userInfo);
         //console.table(userInfo[0].geometry.location.lat);
+        console.log(userInfo[0]);
         localStorage.setItem(
           keyName,
           `${userInfo[0].geometry.location.lat}, ${userInfo[0].geometry.location.lng}`
