@@ -27,6 +27,7 @@ export default class GeoApi {
     this.userAddressStore = "userLocation";
     this.userLatLonStore = "userLatLon";
     this.closestFBStore = "closestFBs";
+    console.log(this.forwardGeo)
   }
 
   async forwardPGet(keyName, address, city, state, country) {
@@ -62,7 +63,7 @@ export default class GeoApi {
         const userInfo = jsonObject['results'];
         //console.table(userInfo);
         //console.table(userInfo[0].geometry.location.lat);
-        console.log(`forwardGeo ${forwardGeo}`);
+        console.log(`forwardGeo ${this.forwardGeo}`);
         console.log(`query ${query}`);
         console.log(`geoToken ${geoToken}`);
         console.log(`Link ${link}`);
