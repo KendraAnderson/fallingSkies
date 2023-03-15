@@ -61,11 +61,10 @@ export default class GeoApi {
       .then(function (jsonObject) {
         //console.table(jsonObject);
         const userInfo = jsonObject['results'];
-        let pep = this.forwardGeo;
         //console.table(userInfo);
         //console.table(userInfo[0].geometry.location.lat);
-        console.log(`forwardGeo ${pep}`);
-        console.log(`query ${query}`);
+        console.log(`forwardGeo ${query}`);
+        console.log(`query ${this.forwardGeo}`);
         console.log(`geoToken ${geoToken}`);
         console.log(`Link ${link}`);
         console.log(`User info ${userInfo}`);
