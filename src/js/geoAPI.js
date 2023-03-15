@@ -64,12 +64,7 @@ export default class GeoApi {
         const userInfo = jsonObject['results'];
         //console.table(userInfo);
         //console.table(userInfo[0].geometry.location.lat);
-        // console.log(`forwardGeo ${query}`);
-        // console.log(`query ${this.forwardGeo}`);
-        // console.log(`geoToken ${geoToken}`);
-        // console.log(`Link ${link}`);
-        // console.log(`User info ${userInfo}`);
-        // console.log(userInfo[0]);
+        console.log(userInfo);
         localStorage.setItem(
           keyName,
           `${userInfo[0].geometry.location.lat}, ${userInfo[0].geometry.location.lng}`
